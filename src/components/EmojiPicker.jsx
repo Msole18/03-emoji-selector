@@ -1,5 +1,7 @@
 import React, { forwardRef, useState } from 'react';
 import { data as emojiList } from './data';
+// import EmojiSearch from './EmojiSearch';
+import EmojiPickerContiner from './EmojiPickerContiner';
 
 const EmojiPicker = ({props, inputRef}) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,23 +11,10 @@ const EmojiPicker = ({props, inputRef}) => {
         setIsOpen(!isOpen);
     }
 
-    const EmojiPickerContiner = () => {
-        return (
-            <div>
-                <input />
-                <div>
-                    {emojiList.map( emoji => (
-                        <div>{emoji.symbol}</div>
-                    ))}
-                </div>
-            </div>
-        );
-    }
-
   return (
     <div>
         <button onClick={handleClick}>😜</button>
-        {isOpen ? <EmojiPickerContiner /> : ''}
+        {isOpen ? (<EmojiPickerContiner />) : ('')}
     </div>
   )
 }
