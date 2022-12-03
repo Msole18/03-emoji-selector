@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
+import stylesCLasses from "./EmojiSearch.module.css";
 
 const EmojiSearch = ({ onSearch }) => {
     const [value, setValue] = useState('');
 
     const handleChange = (e) => {
-      console.log('handleChange IN: ' + value)
       setValue(e.target.value);
-      console.log('handleChange OUT: ' + value)
       onSearch(e);
       
     }
 
   return (
-    <input type='text' onChange={handleChange} value={value}/>
+    <input type='text' className={stylesCLasses.search} onChange={handleChange} value={value}/>
   )
 }
 

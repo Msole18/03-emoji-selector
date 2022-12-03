@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { data as emojiList } from './data';
+import EmojiButton from './EmojiButton';
 import EmojiSearch from "./EmojiSearch";
 
 
-const EmojiPickerContiner = () => {
+const EmojiPickerContainer = ( { onCLickEmoji } ) => {
     const [emojis, setEmojis] = useState(emojiList);
+  
 
     const handleSearch = (e) => {
         const val = e.target.value.toLowerCase();
@@ -21,17 +23,26 @@ const EmojiPickerContiner = () => {
         }
     }
 
+    const handleClickEmoji = (emoji) => {
+        console.log("emojiContainer: " + emoji.name)
+        onCLickEmoji(emoji)
+    }
+
     return (
-        <div>
+        <div >
             <EmojiSearch onSearch={handleSearch} />
-            
-            <div>
+            <div>  
                 {emojis.map( emoji => (
-                    <div key={emoji.symbol}>{emoji.symbol}</div>
+                    <EmojiButton 
+                        key={emoji.symbol}
+                        emoji={emoji} 
+                        onClick={handleClickEmoji}
+                    />
                 ))}
             </div>
         </div>
     );
 }
 
-export default  EmojiPickerContiner;
+export default  forwardRef(EmojiPickerContainer);
+

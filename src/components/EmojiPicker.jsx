@@ -1,20 +1,41 @@
-import React, { forwardRef, useState } from 'react';
-import { data as emojiList } from './data';
-// import EmojiSearch from './EmojiSearch';
-import EmojiPickerContiner from './EmojiPickerContiner';
+import React, { forwardRef, useState, useRef, useEffect } from 'react';
+import EmojiPickerContainer from './EmojiPickerContainer';
+import stylesCLasses from "./EmojiPicker.module.css";
 
-const EmojiPicker = ({props, inputRef}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [emojis, setEmojis] = useState(emojiList);
+const EmojiPicker = (props, ref) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef(null);
 
-    const handleClick = () => {
+  useEffect(() => {
+    window.addEventListener("click", (e) => {
+      if (!containerRef.current.contains(e.target)) {
+        setIsOpen(false);
+        setEmojis([...emojiList]);
+      }
+    });
+  }, []);
+
+  const handleClick = () => {
         setIsOpen(!isOpen);
-    }
+  }
+
+  const handleClickEmoji = (emoji) => {
+    const cursorPos = ref.current.selectionStart;
+    const text = ref.current.value;
+    const prev = text.slice(0, cursorPos);
+    const next = text.slice(cursorPos);
+    ref.current.value = prev + emoji.symbol + next;
+    ref.current.selectionStart = cursorPos + emoji.symbol.length;
+    ref.current.selectionEnd = cursorPos + emoji.symbol.length;
+    ref.current.focus();
+  }
 
   return (
-    <div>
-        <button onClick={handleClick}>😜</button>
-        {isOpen ? (<EmojiPickerContiner />) : ('')}
+    <div ref={containerRef} style={{ position: "relative", display: "inline" }}>
+        <button className={stylesCLasses.emojiPickerButton} onClick={handleClick}>😜</button>
+        {isOpen ? (<EmojiPickerContainer className={stylesCLasses.emojiPickerContainer} onCLickEmoji={handleClickEmoji} />) 
+              : ('')
+        }
     </div>
   )
 }
