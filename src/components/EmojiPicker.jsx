@@ -10,13 +10,13 @@ const EmojiPicker = (props, ref) => {
     window.addEventListener("click", (e) => {
       if (!containerRef.current.contains(e.target)) {
         setIsOpen(false);
-        setEmojis([...emojiList]);
+        // setEmojis([...emojiList]);
       }
     });
   }, []);
 
   const handleClick = () => {
-        setIsOpen(!isOpen);
+    setIsOpen(!isOpen);
   }
 
   const handleClickEmoji = (emoji) => {
@@ -31,10 +31,16 @@ const EmojiPicker = (props, ref) => {
   }
 
   return (
-    <div ref={containerRef} style={{ position: "relative", display: "inline" }}>
-        <button className={stylesCLasses.emojiPickerButton} onClick={handleClick}>😜</button>
-        {isOpen ? (<EmojiPickerContainer className={stylesCLasses.emojiPickerContainer} onCLickEmoji={handleClickEmoji} />) 
-              : ('')
+    <div ref={containerRef} className={stylesCLasses.inputContainer} >
+        <button 
+          className={stylesCLasses.emojiPickerButton} 
+          onClick={handleClick}
+        >😜</button>
+        {isOpen ? (
+          <EmojiPickerContainer 
+            onCLickEmoji={handleClickEmoji} 
+          />) 
+          : ('')
         }
     </div>
   )

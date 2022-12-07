@@ -1,7 +1,8 @@
-import React, { forwardRef, useState } from 'react';
+import React, { useState } from 'react';
 import { data as emojiList } from './data';
 import EmojiButton from './EmojiButton';
 import EmojiSearch from "./EmojiSearch";
+import stylesCLasses from "./EmojiPickerContainer.module.css";
 
 
 const EmojiPickerContainer = ( { onCLickEmoji } ) => {
@@ -24,14 +25,13 @@ const EmojiPickerContainer = ( { onCLickEmoji } ) => {
     }
 
     const handleClickEmoji = (emoji) => {
-        console.log("emojiContainer: " + emoji.name)
         onCLickEmoji(emoji)
     }
 
     return (
-        <div >
+        <div className={stylesCLasses.emojiPickerContainer } >
             <EmojiSearch onSearch={handleSearch} />
-            <div>  
+            <div className={stylesCLasses.emojisList } >  
                 {emojis.map( emoji => (
                     <EmojiButton 
                         key={emoji.symbol}
@@ -44,5 +44,4 @@ const EmojiPickerContainer = ( { onCLickEmoji } ) => {
     );
 }
 
-export default  forwardRef(EmojiPickerContainer);
-
+export default  EmojiPickerContainer;

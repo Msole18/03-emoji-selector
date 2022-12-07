@@ -11,7 +11,11 @@ const EmojiSearch = ({ onSearch }) => {
     }
 
   return (
-    <input type='text' className={stylesCLasses.search} onChange={handleChange} value={value}/>
+    <input 
+      type='text' 
+      className={stylesCLasses.search} 
+      onChange={handleChange} 
+      value={value}/>
   )
 }
 
